@@ -308,8 +308,6 @@ checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 [[package]]
 name = "nrf-hal-common"
 version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0dd20bc42f34ae3647e7a4f23733e2f8107a9edc1fed79d9ee44bc05f8f47562"
 dependencies = [
  "cast",
  "cfg-if",
