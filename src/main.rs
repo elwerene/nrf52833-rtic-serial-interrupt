@@ -97,7 +97,7 @@ const APP: () = {
     fn uarte1_interrupt(cx: uarte1_interrupt::Context) {
         defmt::println!("uarte1 interrupt");
         if let Ok(b) = cx.resources.serial1.read() {
-            defmt::println!("Byte on serial0: {}", b)
+            defmt::println!("Byte on serial1: {}", b)
         }
     }
 };
