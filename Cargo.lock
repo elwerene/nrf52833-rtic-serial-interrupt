@@ -280,7 +280,6 @@ name = "minimal_serial_example"
 version = "0.1.0"
 dependencies = [
  "cortex-m",
- "cortex-m-rt",
  "cortex-m-rtic",
  "defmt",
  "defmt-rtt",
