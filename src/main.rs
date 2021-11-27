@@ -50,9 +50,9 @@ const APP: () = {
         uarte0.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL0_BUF: [u8; 1] = [0; 1];
-        let mut serial0 = UarteRx::new(unsafe { &mut SERIAL0_BUF }).expect("Could not create rx");
+        let serial0 = UarteRx::new(unsafe { &mut SERIAL0_BUF }).expect("Could not create rx");
         // on NRF* serial interrupts are only called after the first read
-        serial0.read().ok();
+        rtic::pend(pac::Interrupt::UARTE0_UART0);
 
         let (uarte1, _) = uarte::Uarte::new(
             p.UARTE1,
@@ -71,9 +71,9 @@ const APP: () = {
         uarte1.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL1_BUF: [u8; 1] = [0; 1];
-        let mut serial1 = UarteRx::new(unsafe { &mut SERIAL1_BUF }).expect("Could not create rx");
+        let serial1 = UarteRx::new(unsafe { &mut SERIAL1_BUF }).expect("Could not create rx");
         // on NRF* serial interrupts are only called after the first read
-        serial1.read().ok();
+        rtic::pend(pac::Interrupt::UARTE1);
 
         init::LateResources {
             serial0,
