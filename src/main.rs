@@ -44,12 +44,14 @@ const APP: () = {
             uarte::Parity::EXCLUDED,
             uarte::Baudrate::BAUD115200,
         )
-        .free();
+        .free(); // Sets up UARTE0 and gives us back pac::UARTE0
 
+        // enable UARTE0 interrupt
         uarte0.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL0_BUF: [u8; 1] = [0; 1];
         let mut serial0 = UarteRx::new(unsafe { &mut SERIAL0_BUF }).expect("Could not create rx");
+        // on NRF* serial interrupts are only called after the first read
         serial0.read().ok();
 
         let (uarte1, _) = uarte::Uarte::new(
@@ -63,12 +65,14 @@ const APP: () = {
             uarte::Parity::EXCLUDED,
             uarte::Baudrate::BAUD115200,
         )
-        .free();
+        .free(); // Sets up UARTE1 and gives us back pac::UARTE1
 
+        // enable UARTE1 interrupt
         uarte1.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL1_BUF: [u8; 1] = [0; 1];
         let mut serial1 = UarteRx::new(unsafe { &mut SERIAL1_BUF }).expect("Could not create rx");
+        // on NRF* serial interrupts are only called after the first read
         serial1.read().ok();
 
         init::LateResources {
