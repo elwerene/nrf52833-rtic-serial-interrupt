@@ -44,12 +44,13 @@ const APP: () = {
             uarte::Parity::EXCLUDED,
             uarte::Baudrate::BAUD115200,
         )
-        .free(); // Sets up UARTE0 and gives us back pac::UARTE0
+        .free();
 
         // enable UARTE0 interrupt
         uarte0.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL0_BUF: [u8; 1] = [0; 1];
+        // There's not yet a official way in the nrf-halo to get UarteRx<UARTE0> and pac::UARTE0, so we had to use free and patch nrf-hal-common
         let serial0 = UarteRx::new(unsafe { &mut SERIAL0_BUF }).expect("Could not create rx");
         // on NRF* serial interrupts are only called after the first read
         rtic::pend(pac::Interrupt::UARTE0_UART0);
@@ -65,12 +66,13 @@ const APP: () = {
             uarte::Parity::EXCLUDED,
             uarte::Baudrate::BAUD115200,
         )
-        .free(); // Sets up UARTE1 and gives us back pac::UARTE1
+        .free();
 
         // enable UARTE1 interrupt
         uarte1.intenset.modify(|_, w| w.rxdrdy().set_bit());
 
         static mut SERIAL1_BUF: [u8; 1] = [0; 1];
+        // There's not yet a official way in the nrf-halo to get UarteRx<UARTE1> and pac::UARTE1, so we had to use free and patch nrf-hal-common
         let serial1 = UarteRx::new(unsafe { &mut SERIAL1_BUF }).expect("Could not create rx");
         // on NRF* serial interrupts are only called after the first read
         rtic::pend(pac::Interrupt::UARTE1);
