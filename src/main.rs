@@ -47,7 +47,7 @@ const APP: () = {
         .free();
 
         // enable UARTE0 interrupt
-        uarte0.intenset.modify(|_, w| w.rxdrdy().set_bit());
+        uarte0.intenset.modify(|_, w| w.endrx().set_bit());
 
         static mut SERIAL0_BUF: [u8; 1] = [0; 1];
         // There's not yet a official way in the nrf-halo to get UarteRx<UARTE0> and pac::UARTE0, so we had to use free and patch nrf-hal-common
@@ -69,7 +69,7 @@ const APP: () = {
         .free();
 
         // enable UARTE1 interrupt
-        uarte1.intenset.modify(|_, w| w.rxdrdy().set_bit());
+        uarte1.intenset.modify(|_, w| w.endrx().set_bit());
 
         static mut SERIAL1_BUF: [u8; 1] = [0; 1];
         // There's not yet a official way in the nrf-halo to get UarteRx<UARTE1> and pac::UARTE1, so we had to use free and patch nrf-hal-common
@@ -91,10 +91,6 @@ const APP: () = {
         while let Ok(b) = cx.resources.serial0.read() {
             defmt::println!("Byte on serial0: {}", b)
         }
-        cx.resources
-            .uarte0
-            .events_rxdrdy
-            .write(|w| unsafe { w.bits(0) });
     }
 
     #[task(binds = UARTE1, resources = [serial1, uarte1])]
@@ -103,9 +99,5 @@ const APP: () = {
         while let Ok(b) = cx.resources.serial1.read() {
             defmt::println!("Byte on serial1: {}", b)
         }
-        cx.resources
-            .uarte1
-            .events_rxdrdy
-            .write(|w| unsafe { w.bits(0) });
     }
 };

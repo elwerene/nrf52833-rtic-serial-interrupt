@@ -308,6 +308,7 @@ checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 [[package]]
 name = "nrf-hal-common"
 version = "0.14.0"
+source = "git+https://github.com/elwerene/nrf-hal.git#23a2778b639dad73089f64ad5f8d24046536e5d1"
 dependencies = [
  "cast",
  "cfg-if",
