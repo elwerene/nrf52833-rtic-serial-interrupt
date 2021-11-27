@@ -54,6 +54,3 @@ incremental = false
 lto = 'fat'
 opt-level = 3
 overflow-checks = false
-
-[patch.crates-io]
-nrf-hal-common = { git = "https://github.com/elwerene/nrf-hal.git" } # fork which makes `UarteRx::new` public
